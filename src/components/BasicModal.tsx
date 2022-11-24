@@ -79,7 +79,7 @@ const BasicModal: React.FC<BasicModalProps> = (props) => {
 					display: "flex",
 					flexDirection: "column",
 					alignItems: "center",
-					gap: "2rem",
+					gap: "1rem",
 				}}
 			>
 				<Box>

@@ -2,12 +2,16 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 
 import { Box } from "@mui/material";
+import { url } from "inspector";
 
 interface ImageThumbnailPanelProps {
 	images: string[];
 	width?: number;
 	thumbnailWidth?: number;
 	handleClick?: (event: React.MouseEvent) => void;
+}
+interface ImagethumbnailProps {
+	src: string;
 }
 
 const ImageThumbnailPanel: React.FC<ImageThumbnailPanelProps> = ({
@@ -16,12 +20,17 @@ const ImageThumbnailPanel: React.FC<ImageThumbnailPanelProps> = ({
 	width,
 	thumbnailWidth,
 }) => {
-	const ImageThumbnail = styled("img")(({ theme }) => ({
+	const ImageThumbnail = styled("div")((props: ImagethumbnailProps) => ({
 		width: thumbnailWidth ? `${thumbnailWidth}px` : `80px`,
+		height: thumbnailWidth ? `${thumbnailWidth}px` : "80px",
 		borderRadius: "10px",
+		position: "relative",
+		backgroundImage: `url(${props.src})`,
+		backgroundSize: "cover",
+
 		"&:hover": {
 			cursor: "pointer",
-			opacity: 0.25,
+			backgroundImage: `linear-gradient(45deg, rgba(255,255,255, 0.5), rgba(255,255,255, 0.5)), url(${props.src})`,
 		},
 	}));
 
@@ -38,7 +47,6 @@ const ImageThumbnailPanel: React.FC<ImageThumbnailPanelProps> = ({
 					<ImageThumbnail
 						src={productThumbnail}
 						data-arrayindex={index}
-						alt="shoes"
 						onClick={handleClick}
 					></ImageThumbnail>
 				);
