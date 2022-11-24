@@ -37,7 +37,7 @@ const ImageThumbnailPanel: React.FC<ImageThumbnailPanelProps> = ({
 				return (
 					<ImageThumbnail
 						src={productThumbnail}
-						data-imagename={`product${index + 1}`}
+						data-arrayindex={index}
 						alt="shoes"
 						onClick={handleClick}
 					></ImageThumbnail>

@@ -41,6 +41,8 @@ const Product: React.FC = () => {
 	// Add context to store if modal is open
 	const [open, setOpen] = useState(false);
 
+	const [modalImageIndex, setModalImageIndex] = useState<number>(-1);
+
 	const imageThumbnails = [
 		productThumbnail1,
 		productThumbnail2,
@@ -48,36 +50,24 @@ const Product: React.FC = () => {
 		productThumbnail4,
 	];
 
+	const imagesFullResolution = [product1, product2, product3, product4];
+
 	const handleOpen = (event: React.MouseEvent) => {
 		const target = event.currentTarget;
 
 		if (!ctx.handleActiveModalImage) return;
 
-		const imageName = target.getAttribute("data-imagename");
-		let clickedImageLarge: string;
-		switch (imageName) {
-			case "product1":
-				clickedImageLarge = product1;
-				break;
-			case "product2":
-				clickedImageLarge = product2;
-				break;
-			case "product3":
-				clickedImageLarge = product3;
-				break;
-			case "product4":
-				clickedImageLarge = product4;
-				break;
-			default:
-				clickedImageLarge = product1;
-				break;
-		}
+		const clickedImageIndex = target.getAttribute("data-arrayindex");
 
-		ctx.handleActiveModalImage(clickedImageLarge);
+		setModalImageIndex(() => +clickedImageIndex!);
 
 		setOpen(true);
 	};
 	const handleClose = () => setOpen(false);
+
+	const handleChangeToModalImage = (index: number) => {
+		setModalImageIndex(() => index);
+	};
 
 	const Image = styled("img")(({ theme }) => ({
 		// display: "block",
@@ -236,7 +226,10 @@ const Product: React.FC = () => {
 					<BasicModal
 						open={open}
 						handleClose={handleClose}
-						mainImage={product1}
+						mainImageIndex={modalImageIndex}
+						imageThumbnails={imageThumbnails}
+						imageArray={imagesFullResolution}
+						setModalImageIndex={handleChangeToModalImage}
 					/>
 				) : (
 					""
